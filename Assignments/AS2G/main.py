@@ -1,7 +1,7 @@
 """
-Author: Nick
-Date: November 5th, 2024
-Description: Choose your own adventure game that takes user input and guides them through a story.
+    Author: Nick
+    Date: November 5th, 2024
+    Description: Choose your own adventure game that takes user input and guides them through a story.
 """
 
 # Import the custom storyBookLib library

@@ -1,3 +1,5 @@
+# 3-9 N.S
+# INCOMPLETE
 import random
 
 def winner(board):
@@ -50,6 +52,32 @@ def make_user_move(board):
 
 def make_computer_move(board):
     """Makes a random move for the computer or checks for winning/blocking moves."""
+    # Check for winning move
+    for row in range(3):
+        for col in range(3):
+            if board[row][col] == " ":
+                board[row][col] = 'O'
+                if winner(board) == 'O':
+                    return
+                board[row][col] = " "
+    
+    # Check for blocking move
+    for row in range(3):
+        for col in range(3):
+            if board[row][col] == " ":
+                board[row][col] = 'X'
+                if winner(board) == 'X':
+                    board[row][col] = 'O'
+                    return
+                board[row][col] = " "
+    
+    # Make a random move
+    while True:
+        row = random.randint(0, 2)
+        col = random.randint(0, 2)
+        if board[row][col] == " ":
+            board[row][col] = 'O'
+            return
     
 
 def main():

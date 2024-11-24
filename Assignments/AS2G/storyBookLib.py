@@ -1,7 +1,7 @@
 """
-Author: Nick
-Date: November 5th, 2024
-Description: Library of functions for my choose your own adventure game.
+    Author: Nick
+    Date: November 5th, 2024
+    Description: Library of functions for my choose your own adventure game.
 """
 
 # Used for the randomness of the game
