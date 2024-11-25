@@ -64,24 +64,22 @@ def display_board(board: list, show_treasure: bool):
         # Print row number at the left
         print(str(row) + ":", end=" ")
 
-        # Create an array to store the row elements, as there is probs better ways to do this
-        row_display = []
+        # Print the contents of the board
         for col in range(cols):
-            # If show_treasure is true, show the treasures, otherwise, show the user's guesses
             if show_treasure:
-                row_display.append(board[row][col])
+                print(board[row][col], end=" ")
             else:
-                # If the user has found a treasure, show it, otherwise, show the user's guesses
                 if board[row][col] == "T":
-                    row_display.append(" ")
+                    print(" ", end=" ")
                 else:
-                    row_display.append(board[row][col])
-        # We will now make use of the join function to join the elements of the row_display array, this way we can print them efficiently
-        print(" | ".join(row_display))
-
+                    print(board[row][col], end=" ")
+            
+            # Print the vertical lines between the columns
+            if col < cols - 1:
+                print("|", end=" ")
         # Print the crosses between the rows
-        if row < rows:
-            print("  " + "+".join(["---"] * cols))
+        print("\n  " + "+".join(["---"] * cols))
+
         
 def make_user_move(board: list) -> bool:
     """
