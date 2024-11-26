@@ -35,61 +35,76 @@ def display_board(board, show_treasure):
         print("\n  ---+---+---+---+---")
         
 def make_user_move(board):
-    # make sure the user enters a valid row and column
-    try:
-        row = int(input("What row would you like to search (0-4): "))
-        col = int(input("What col would you like to search (0-4): "))
+    """
+        Allows the user to make a move on the board and checks if they have found a treasure.
         
-        while row < 0 or row > 4 or col < 0 or col > 4 or board[row][col] == "X" or board[row][col] == "$":
-            if row < 0 or row > 4 or col < 0 or col > 4:
+        Args:
+        board: 2D array containing the board
+        
+        Returns:
+        boolean: True if the user has found a treasure, False otherwise
+    """
+    # Get the number of rows and columns
+    rows = len(board)
+    cols = len(board[0])
+
+    # Initialize the row and column variables
+    valid_input = False
+
+    while not valid_input:
+        try:
+            # Get user input
+            row = int(input("What row would you like to search (0-4): "))
+            col = int(input("What col would you like to search (0-4): "))
+
+            # Validate the row and column input
+            if row < 0 or row >= rows or col < 0 or col >= cols:
                 print("Invalid row or column. Please enter a row and column between 0 and 4.")
-                row = int(input("Enter a row: "))
-                col = int(input("Enter a column: "))
-            else:
+            elif board[row][col] in ("X", "$"):
                 print("You already looked there. Please enter a new row and column.")
-                row = int(input("Enter a row: "))
-                col = int(input("Enter a column: "))
-
-        if board[row][col] == "T":
-            print("Nice! You found a treasure!")
-            board[row][col] = "$"
-            return True
-        else:
-            # scan the surrounding area for treasures, and notify the user that they are close
-            # put an exclimation mark instead of an x if there is a treasure nearby
-            hide_treasure_nearby = False
-
-            if row > 0 and board[row - 1][col] == "T":
-                hide_treasure_nearby = True
-            if row < 4 and board[row + 1][col] == "T":
-                hide_treasure_nearby = True
-            if col > 0 and board[row][col - 1] == "T":
-                hide_treasure_nearby = True
-            if col < 4 and board[row][col + 1] == "T":
-                hide_treasure_nearby = True
-
-            # check diagonals
-            if row > 0 and col > 0 and board[row - 1][col - 1] == "T":
-                hide_treasure_nearby = True
-            if row > 0 and col < 4 and board[row - 1][col + 1] == "T":
-                hide_treasure_nearby = True
-            if row < 4 and col > 0 and board[row + 1][col - 1] == "T":
-                hide_treasure_nearby = True
-            if row < 4 and col < 4 and board[row + 1][col + 1] == "T":
-                hide_treasure_nearby = True
-            
-            if not hide_treasure_nearby:
-                print("Nothing there.")
-                board[row][col] = "X"
-                return False
             else:
-                print("You are close to a treasure!")
-                board[row][col] = "!"
-                return False
-        
-    except ValueError:
-        print("Please enter a valid number for the row and column.")
-        make_user_move(board)
+                valid_input = True
+        except ValueError:
+            print("Please enter a valid number for the row and column.")
+
+    # Check if the user found a treasure
+    if board[row][col] == "T":
+        print("Nice! You found a treasure!")
+        board[row][col] = "$"
+        return True
+    else:
+        # Scan the surrounding area for treasures
+        treasure_nearby = False
+
+        # Check adjacent cells
+        if row > 0 and board[row - 1][col] == "T":
+            treasure_nearby = True
+        if row < rows - 1 and board[row + 1][col] == "T":
+            treasure_nearby = True
+        if col > 0 and board[row][col - 1] == "T":
+            treasure_nearby = True
+        if col < cols - 1 and board[row][col + 1] == "T":
+            treasure_nearby = True
+
+        # Check diagonal cells
+        if row > 0 and col > 0 and board[row - 1][col - 1] == "T":
+            treasure_nearby = True
+        if row > 0 and col < cols - 1 and board[row - 1][col + 1] == "T":
+            treasure_nearby = True
+        if row < rows - 1 and col > 0 and board[row + 1][col - 1] == "T":
+            treasure_nearby = True
+        if row < rows - 1 and col < cols - 1 and board[row + 1][col + 1] == "T":
+            treasure_nearby = True
+
+        # Respond based on proximity to treasure
+        if not treasure_nearby:
+            print("Nothing there.")
+            board[row][col] = "X"
+            return False
+        else:
+            print("You are close to a treasure!")
+            board[row][col] = "!"
+            return False
 
 def main():
     print("Welcome to the Treasure Hunt Game!")

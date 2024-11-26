@@ -103,19 +103,26 @@ def make_user_move(board: list) -> bool:
     # Input handling in a separate try-except block
     while True:
         try:
+            # Get the row and column from the user
             row = int(input("What row would you like to search (0-" + str(rows - 1) + "): "))
             col = int(input("What col would you like to search (0-" + str(cols - 1) + "): "))
 
             # Validate the row and column input
             if row < 0 or row >= rows or col < 0 or col >= cols:
                 print("Invalid row or column. Please enter a row and column between 0 and " + str(rows - 1) + ".")
+
+                # Continue the loop if the input is invalid
                 continue
             if board[row][col] in ("X", "$"):
                 print("You already looked there. Please enter a new row and column.")
+
+                # Continue the loop if the input is invalid
                 continue
 
             # Break the loop when valid input is provided
             break
+
+        # Catch any non-numeric input
         except ValueError:
             print("Please enter a valid number for the row and column.")
 
