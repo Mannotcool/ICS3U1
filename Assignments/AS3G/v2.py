@@ -60,7 +60,7 @@ def make_user_move(board):
             # Validate the row and column input
             if row < 0 or row >= rows or col < 0 or col >= cols:
                 print("Invalid row or column. Please enter a row and column between 0 and 4.")
-            elif board[row][col] in ("X", "$"):
+            elif board[row][col] in ("X", "$", "!"):
                 print("You already looked there. Please enter a new row and column.")
             else:
                 valid_input = True

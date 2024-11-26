@@ -113,7 +113,7 @@ def make_user_move(board: list) -> bool:
 
                 # Continue the loop if the input is invalid
                 continue
-            if board[row][col] in ("X", "$"):
+            if board[row][col] in ("X", "$", "!"):
                 print("You already looked there. Please enter a new row and column.")
 
                 # Continue the loop if the input is invalid
@@ -213,7 +213,7 @@ def main():
     hide_treasure(board)
 
     # Show the board with the treasures, just for demo
-    display_board(board, True)
+    # display_board(board, True)
 
     print("You have 10 tries left, and have found 0/3 treasures.\n")
 

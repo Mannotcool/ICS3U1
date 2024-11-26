@@ -35,33 +35,46 @@ def display_board(board, show_treasure):
         print("\n  ---+---+---+---+---")
         
 def make_user_move(board):
-    # make sure the user enters a valid row and column
-    try:
-        row = int(input("What row would you like to search (0-4): "))
-        col = int(input("What col would you like to search (0-4): "))
+    """
+        Allows the user to make a move on the board and checks if they have found a treasure.
 
-        while row < 0 or row > 4 or col < 0 or col > 4 or board[row][col] == "X" or board[row][col] == "$":
+        Args:
+        board: 2D array containing the board
+
+        Returns:
+        boolean: True if the user has found a treasure, False otherwise
+    """
+    # Initialize variables
+    row = -1
+    col = -1
+    valid_input = False
+
+    # Input validation loop
+    while not valid_input:
+        try:
+            # Get user input
+            row = int(input("What row would you like to search (0-4): "))
+            col = int(input("What col would you like to search (0-4): "))
+
+            # Validate the row and column
             if row < 0 or row > 4 or col < 0 or col > 4:
                 print("Invalid row or column. Please enter a row and column between 0 and 4.")
-                row = int(input("Enter a row: "))
-                col = int(input("Enter a column: "))
-            else:
+            elif board[row][col] in ("X", "$"):
                 print("You already looked there. Please enter a new row and column.")
-                row = int(input("Enter a row: "))
-                col = int(input("Enter a column: "))
+            else:
+                valid_input = True
+        except ValueError:
+            print("Please enter a valid number for the row and column.")
 
-        if board[row][col] == "T":
-            print("Nice! You found a treasure!")
-            board[row][col] = "$"
-            return True
-        else:
-            print("Nothing there.")
-            board[row][col] = "X"
-            return False
-        
-    except ValueError:
-        print("Please enter a valid number for the row and column.")
-        make_user_move(board)
+    # Process the move after valid input
+    if board[row][col] == "T":
+        print("Nice! You found a treasure!")
+        board[row][col] = "$"
+        return True
+    else:
+        print("Nothing there.")
+        board[row][col] = "X"
+        return False
 
 def main():
     print("Welcome to the Treasure Hunt Game!")
