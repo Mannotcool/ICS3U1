@@ -9,6 +9,7 @@
 import random
 
 def hide_treasure(board):
+    
     treasures = 0
     while treasures < 3:
         row = random.randint(0, 4)

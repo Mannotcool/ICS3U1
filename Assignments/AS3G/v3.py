@@ -52,7 +52,7 @@ def display_board(board: list, show_treasure: bool):
     rows = len(board)
     cols = len(board[0])
 
-    # print column numbers at the top, first add some spacing
+    # Print column numbers at the top, first add some spacing
     print("   ", end="")
     for col in range(cols):
         # then print the column number, and add some spacing between them
@@ -60,6 +60,7 @@ def display_board(board: list, show_treasure: bool):
     
     print()
 
+    # Now create the rows
     for row in range(rows):
         # Print row number at the left
         print(str(row) + ":", end=" ")
@@ -113,6 +114,8 @@ def make_user_move(board: list) -> bool:
 
                 # Continue the loop if the input is invalid
                 continue
+            
+            # Check if row -> col contains any non-empty spots.
             if board[row][col] in ("X", "$", "!"):
                 print("You already looked there. Please enter a new row and column.")
 
@@ -206,14 +209,11 @@ def main():
 
     # Create a board with the user's specified rows and columns
     board = []
-    for i in range(rows_amount):
+    for _ in range(rows_amount):
         board.append([" "] * cols_amount)
     
     # Hide the treasures in the board
     hide_treasure(board)
-
-    # Show the board with the treasures, just for demo
-    # display_board(board, True)
 
     print("You have 10 tries left, and have found 0/3 treasures.\n")
 
