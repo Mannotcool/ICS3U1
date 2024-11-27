@@ -24,7 +24,6 @@ def hide_treasure(board: list):
     rows = len(board)
     cols = len(board[0])
 
-    # Running count of treasures
     treasures = 0
 
     # Hide 3 treasures in the board randomly
@@ -60,7 +59,6 @@ def display_board(board: list, show_treasure: bool):
     
     print()
 
-    # Now create the rows
     for row in range(rows):
         # Print row number at the left
         print(str(row) + ":", end=" ")
@@ -96,8 +94,7 @@ def make_user_move(board: list) -> bool:
     # Get a count of the rows and columns
     rows = len(board)
     cols = len(board[0])
-
-    # Initialize variables for row and column
+    
     row = -1
     col = -1
 
@@ -118,8 +115,6 @@ def make_user_move(board: list) -> bool:
             # Check if row -> col contains any non-empty spots.
             if board[row][col] in ("X", "$", "!"):
                 print("You already looked there. Please enter a new row and column.")
-
-                # Continue the loop if the input is invalid
                 continue
 
             # Break the loop when valid input is provided
@@ -159,13 +154,13 @@ def make_user_move(board: list) -> bool:
             hide_treasure_nearby = True
 
         # Respond based on proximity to treasure
-        if not hide_treasure_nearby:
-            print("Nothing there.")
-            board[row][col] = "X"
-            return False
-        else:
+        if hide_treasure_nearby:
             print("You are close to a treasure!")
             board[row][col] = "!"
+            return False
+        else:
+            print("Nothing there.")
+            board[row][col] = "X"
             return False
         
 def main():
@@ -188,7 +183,6 @@ def main():
     print("Welcome to the Treasure Hunt Game!")
     print("Find the treasure ($) in the grid below. You have 10 tries to find 3 treasures.")
 
-    # Part of verion 3, ask the user for the number of rows and columns
     try:
         # Get the number of rows and columns from the user
         rows_amount = int(input("Enter the number of rows between 3 and 10: "))
@@ -212,7 +206,6 @@ def main():
     for _ in range(rows_amount):
         board.append([" "] * cols_amount)
     
-    # Hide the treasures in the board
     hide_treasure(board)
 
     print("You have 10 tries left, and have found 0/3 treasures.\n")
@@ -227,10 +220,13 @@ def main():
     
     # Display the final message to the user
     if treasures_found == 3:
+        display_board(board, False)
+        print()
         print("Congratulations! You found all the treasures!")
     else:
-        print("Oh no! You only found", str(treasures_found) + "/3 treasures. Better luck next time!")
         display_board(board, True)
+        print()
+        print("Oh no! You only found", str(treasures_found) + "/3 treasures. Better luck next time!")
 
     print("*** GAME OVER ***")
     sys.exit(0) # Exit the program without any tracebacks because I have already handled the errors
