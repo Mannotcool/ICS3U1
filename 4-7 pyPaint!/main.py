@@ -70,6 +70,42 @@ def main():
                     pygame.draw.line(background, drawColor, lineStart, lineEnd, lineWidth)
                 lineStart = lineEnd
             elif event.type == pygame.KEYDOWN:
+                # check for r g b and change color
+                if event.key == pygame.K_r:
+                    drawColor = (255, 0, 0)
+                elif event.key == pygame.K_g:
+                    drawColor = (0, 255, 0)
+                elif event.key == pygame.K_b:
+                    drawColor = (0, 0, 255)
+
+                # check for 1-9 and change line width
+                elif event.key == pygame.K_1:
+                    lineWidth = 1
+                elif event.key == pygame.K_2:
+                    lineWidth = 2
+                elif event.key == pygame.K_3:
+                    lineWidth = 3
+                elif event.key == pygame.K_4:
+                    lineWidth = 4
+                elif event.key == pygame.K_5:
+                    lineWidth = 5
+                elif event.key == pygame.K_6:
+                    lineWidth = 6
+                elif event.key == pygame.K_7:
+                    lineWidth = 7
+                elif event.key == pygame.K_8:
+                    lineWidth = 8
+                elif event.key == pygame.K_9:
+                    lineWidth = 9
+
+                # check for s and save image
+                elif event.key == pygame.K_s:
+                    pygame.image.save(background, "painting.png")
+                elif event.key == pygame.K_l:
+                    background = pygame.image.load("painting.png")
+                    background = background.convert()
+
+
                 if event.key == pygame.K_q:
                     #quit    
                     keepGoing = False
