@@ -57,7 +57,10 @@ def main():
     for _ in range(10):
         cherries.append(mySprites.Cherry(screen))
         
+
+    # For collision
     cherriesGroup = pygame.sprite.OrderedUpdates(cherries)
+    # For display
     allSprites = pygame.sprite.OrderedUpdates(cherries, pacman, score)
     
     # ACTION

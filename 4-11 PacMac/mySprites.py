@@ -23,8 +23,6 @@ class Cherry(pygame.sprite.Sprite):
         self.rect.centerx = random.randrange(0, screen.get_width())
         self.rect.centery = random.randrange(0, screen.get_height())    
 
-    
-
 
 # 3. COMPLETE THE "PacMan" CLASS BELOW...
 class PacMan(pygame.sprite.Sprite):
